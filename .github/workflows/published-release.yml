@@ -9,6 +9,8 @@ on:
   workflow_dispatch:
 env:
   GH_TOKEN: ${{ github.token }}
+permissions:
+  actions: write
 jobs:
   # Trigger creation of the wheelhouse
   trigger-wheelhouse-ci:
