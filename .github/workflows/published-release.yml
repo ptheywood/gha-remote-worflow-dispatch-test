@@ -8,7 +8,7 @@ on:
     types: [published]
   workflow_dispatch:
 env:
-  GH_TOKEN: ${{ github.token }}
+  GH_TOKEN: ${{ secrets.TOKEN }}
 permissions: write-all
 jobs:
   # Trigger creation of the wheelhouse
