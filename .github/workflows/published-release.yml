@@ -1,0 +1,30 @@
+# On publication of a release, trigger workflow dispatch events in other repositories
+
+name: Published Release
+
+# Controls when the workflow will run
+on:
+  release:
+    types: [published]  
+env:
+  GH_TOKEN: ${{ secrets.MY_TOKEN }}
+
+jobs:
+  # Trigger creation of the wheelhouse
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      # - uses: actions/checkout@v3
+
+      - name: Trigger FLAMEGPU2-wheelhouse
+        env:
+          REPO: "ptheywood/FLAMEGPU2-wheelhouse"
+          WORKFLOW: "ci.yml"
+        run: |
+          gh workflow run ${WORKFLOW} -R ${REPO}
+          sleep 5
+          gh run watch -R ${REPO} $(gh run list -R ${REPO} -w ${WORKFLOW} -L1 --json databaseId --jq .[0].databaseId)
