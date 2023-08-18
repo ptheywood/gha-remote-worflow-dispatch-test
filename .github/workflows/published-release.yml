@@ -8,8 +8,7 @@ on:
     types: [published]
   workflow_dispatch:
 env:
-  GH_TOKEN: ${{ secrets.TOKEN }}
-permissions: write-all
+  GH_TOKEN: ${{ github.token }}
 jobs:
   # Trigger creation of the wheelhouse
   trigger-wheelhouse-ci:
@@ -19,7 +18,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      # - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
       - name: Trigger FLAMEGPU2-wheelhouse
         env:
