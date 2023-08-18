@@ -5,7 +5,8 @@ name: Published Release
 # Controls when the workflow will run
 on:
   release:
-    types: [published]  
+    types: [published]
+  workflow_dispatch:
 env:
   GH_TOKEN: ${{ secrets.MY_TOKEN }}
 
